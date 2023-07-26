@@ -7,7 +7,7 @@ import { LoginLayoutComponent } from './Layout/login-layout/login-layout.compone
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'admin/dashboard',
+    redirectTo: 'admin',
     pathMatch: 'full',
   }, {
     path: 'admin',
