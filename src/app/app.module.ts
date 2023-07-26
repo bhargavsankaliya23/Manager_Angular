@@ -13,7 +13,7 @@ import { ComponentsModule } from './components/components.module';
 import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/table';
-import { DatePipe } from '@angular/common';
+import { DatePipe, HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { DirectivesModule } from './shared/directives/directives.module';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { AlertComponentComponent } from './shared/component/alert-component/alert-component.component';
@@ -39,7 +39,7 @@ import { AlertComponentComponent } from './shared/component/alert-component/aler
     DirectivesModule,
     NgxPaginationModule
   ],
-  providers: [DatePipe],
+  providers: [DatePipe, { provide: LocationStrategy, useClass: HashLocationStrategy },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
