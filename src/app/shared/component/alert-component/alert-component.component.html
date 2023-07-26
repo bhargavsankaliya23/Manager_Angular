@@ -1,0 +1,7 @@
+<div class="alret_box"  *ngIf="showAlert">
+    <div class="alert" [ngClass]="(showAlert ? 'show-transaction' : '') +' ' + alertType">
+        <span class="f-12">
+            {{ message }}
+        </span>
+    </div>
+</div>

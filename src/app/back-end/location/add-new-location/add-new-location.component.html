@@ -1,0 +1,154 @@
+<div class="container-fluid px-5">
+    <div class="border-bottom p-2">
+        <div class="d-flex header-btns justify-content-between align-items-center">
+            <h2 class="mb-0"><strong>Location</strong></h2>
+            <div>
+                <button class="btn btn-primary bg-success me-2" (click)="generalTabSave()">Save</button>
+                <button class="btn btn-primary bg-danger" routerLink="/admin/location">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid p-5">
+    <div class="card p-3">
+        <div class="p-3 tab-nav-item">
+            <div class="nav-scrollable border-bottom">
+                <ul class="nav nav-pills nav-justified flex-column flex-sm-row border-transparent fs-6">
+                    <li class="nav-item active mt-2">
+                        <a class="nav-link py-3">General</a>
+                    </li>
+                    <li class="nav-item mt-2">
+                        <a class="nav-link py-3">Area</a>
+                    </li>
+                    <li class="nav-item mt-2">
+                        <a class="nav-link py-3">Scheduling</a>
+                    </li>
+                    <li class="nav-item mt-2">
+                        <a class="nav-link py-3">Timesheets</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row p-3" [formGroup]="generalTabForm">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 mb-2">
+                <div class="card p-3">
+                    <div class="card-header">
+                        <h3 class="mb-0">General Info</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3">
+                                <label for="name">Name</label>
+                                <input type="text" class="form-control" formControlName="name" placeholder="Name">
+                                <div *ngIf="submittedGeneralTab && fgeneralData['name'].errors">
+                                    <div *ngIf="fgeneralData['name'].errors['required']">
+                                        <span class="text-danger">Name is Required.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3">
+                                <label for="outletType">Outlet Type</label>
+                                <ng-select [items]="leaveTypeList" class="form-control p-0" formControlName="outletType"
+                                    placeholder="Select Outlet Type" bindLabel="leaveTypeList" [clearable]="false"
+                                    bindValue="leaveTypeList" [searchable]="false">
+                                </ng-select>
+                                <div *ngIf="submittedGeneralTab && fgeneralData['outletType'].errors">
+                                    <div *ngIf="fgeneralData['outletType'].errors['required']">
+                                        <span class="text-danger">Please Select Outlet.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3">
+                                <label for="email">Email</label>
+                                <input type="text" class="form-control" formControlName="email" placeholder="Email">
+                                <div *ngIf="submittedGeneralTab && fgeneralData['email'].errors">
+                                    <div *ngIf="fgeneralData['email'].errors['required']">
+                                        <span class="text-danger">Email is Required.</span>
+                                    </div>
+                                    <div
+                                        *ngIf="!fgeneralData['email'].errors['valid'] && !fgeneralData['email'].errors['required']">
+                                        <span class="text-danger">Please Enter Valid Email ID.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3">
+                                <label for="fax">Fax</label>
+                                <input type="text" class="form-control" formControlName="fax" placeholder="Fax">
+                            </div>
+                            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3">
+                                <label for="contactNo">Contact No</label>
+                                <input type="text" class="form-control" formControlName="contactNo"
+                                    placeholder="Contact No">
+                                <div *ngIf="submittedGeneralTab && fgeneralData['contactNo'].errors">
+                                    <div *ngIf="fgeneralData['contactNo'].errors['required']">
+                                        <span class="text-danger">Contact No is Required.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="card p-3">
+                    <div class="card-header">
+                        <h3 class="mb-0">Address</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <!-- <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3">
+                                <label for="suburb">Suburb</label>
+                                <input type="text" class="form-control" formControlName="subUrb" placeholder="Suburb">
+                            </div> -->
+                            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3">
+                                <label for="Address">Address</label>
+                                <!-- <input ngx-google-places-autocomplete [options]="options"
+                                    (onAddressChange)="handleAddressChange($event)" #placesRef="ngx-places"
+                                    autocomplete="off" class="form-control" placeholder="Address" /> -->
+                                <textarea name="" id="" formControlName="address" rows="2" class="form-control"
+                                    placeholder="Address"></textarea>
+                                <div *ngIf="submittedGeneralTab && fgeneralData['address'].errors">
+                                    <div *ngIf="fgeneralData['address'].errors['required']">
+                                        <span class="text-danger">Address is Required.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3">
+                                <label for="Country">Country</label>
+                                <ng-select [items]="countryList" class="form-control p-0 me-2"
+                                    (change)="onCountryChange()" placeholder="---Select Country---"
+                                    formControlName="country" bindLabel="name" [clearable]="false" [searchable]="false">
+                                </ng-select>
+                                <div *ngIf="submittedGeneralTab && fgeneralData['country'].errors">
+                                    <div *ngIf="fgeneralData['country'].errors['required']">
+                                        <span class="text-danger">Please Select Country.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3">
+                                <label for="State">State</label>
+                                <ng-select [items]="stateList" class="form-control p-0 me-2"
+                                    placeholder="---Select State---" bindLabel="name" formControlName="state"
+                                    [clearable]="false" [searchable]="false">
+                                </ng-select>
+                                <div *ngIf="submittedGeneralTab && fgeneralData['state'].errors">
+                                    <div *ngIf="fgeneralData['state'].errors['required']">
+                                        <span class="text-danger">Please Select State.</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3">
+                                <label for="PostalCode">Postal Code</label>
+                                <input type="text" class="form-control" formControlName="postalCode"
+                                    placeholder="Postal Code">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

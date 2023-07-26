@@ -1,0 +1,138 @@
+<div class="border-bottom p-2">
+    <div class="row mt-2 m-0">
+        <div class="d-flex align-items-center side-btn justify-content-between">
+            <div class="d-flex  align-items-center left-side-btn">
+                <button class="btn bg-gray me-3 mb-2" routerLink="/admin/peoples/add-new-people">Add People</button>
+                <span class="d-flex align-items-center mb-2 filter-btns">
+                    <h3 class="mb-0 white-space me-3">Filter By</h3>
+                    <div class="d-flex">
+                        <ng-select [items]="locationList" class="form-control p-0 me-2" placeholder="Any Location"
+                            bindLabel="name" (change)="getPeopleList()" [(ngModel)]="locationID" [clearable]="true" bindValue="_id" [searchable]="false">
+                        </ng-select>
+                        <ng-select [items]="accessLevelList" class="form-control w-auto p-0" placeholder="Any Access Level"
+                            bindLabel="roleName" (change)="getPeopleList()" [(ngModel)]="roleId" [clearable]="true" bindValue="_id" [searchable]="false">
+                        </ng-select>
+                    </div>
+                </span>
+            </div>
+            <div class="d-flex align-items-center right-side-btn">
+                <div class="right-two-btn">
+                    <button class="btn btn-outline-primary mb-2 me-2">Import</button>
+                    <button class="btn btn-outline-primary mb-2 me-2">Send Login Details</button>
+                </div>
+                <input type="text" class="form-control w-auto mb-2 keyword-input" placeholder="Keyword Search...">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="p-4">
+    <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
+        <div class="datatable-top">
+            <div class="datatable-dropdown">
+                <label class="d-flex align-items-center">
+                    <ng-select [items]="itemPerPageList" class="datatable-selector p-0" placeholder="Select ..."
+                        bindLabel="roleName" [clearable]="false" (change)="itemPerPageChange()"
+                        [(ngModel)]="itemPerPage" bindValue="_id" [searchable]="false">
+                    </ng-select>
+                    <!-- <select class="datatable-selector">
+                        <option value="5">5</option>
+                        <option value="10" selected="">10</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>
+                        <option value="25">25</option>
+                    </select> -->
+                    entries per page
+                </label>
+            </div>
+            <div class="datatable-search">
+                <input class="datatable-input" (input)="search()" placeholder="Search..." type="search"
+                    [(ngModel)]="searchTerm" aria-controls="datatablesSimple">
+            </div>
+        </div>
+        <div class="datatable-container">
+            <table id="datatablesSimple" class="datatable-table" matSort matSortActive="exportCode"
+                matSortDirection="asc" matSortDisableClear="true" (matSortChange)="sortingList($event)">
+                <thead>
+                    <tr>
+                        <th>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                            </div>
+                        </th>
+                        <th>Action</th>
+                        <th mat-sort-header="firstName">FirstName</th>
+                        <th mat-sort-header="lastName">LastName</th>
+                        <th mat-sort-header="location">Location</th>
+                        <th mat-sort-header="role">Access Level</th>
+                        <th mat-sort-header="email">Email</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr
+                        *ngFor="let peopleData of peopleList | paginate: { itemsPerPage: l, currentPage: p };let peopleIndex = index">
+                        <td>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                            </div>
+                        </td>
+                        <td>
+                            <div  class="d-flex">
+                                <span class="me-3 text-primary cursor-pointer" (click)="updatePeople(peopleData._id)">
+                                    <i class="material-icons">border_color</i>
+                                </span>
+                                <span class="me-3 text-primary form-check form-switch">
+                                    <input class="form-check-input" checked type="checkbox" role="switch"
+                                        id="flexSwitchCheckChecked">
+                                </span>
+                            </div>
+                        </td>
+                        <td>{{peopleData.firstName}}</td>
+                        <td>{{peopleData.lastName}}</td>
+                        <td>{{peopleData.locationData.name}}</td>
+                        <td>{{peopleData?.roleData?.roleName}}</td>
+                        <td>{{peopleData.email}}</td>
+                        <td>
+                            <span class="badge bg-success" *ngIf="peopleData.status == 1">Active</span>
+                            <span class="badge bg-danger" *ngIf="peopleData.status == 2">Deactive</span>
+                        </td>
+                    </tr>
+                    <tr *ngIf="noData">
+                        <td colspan="8">
+                            <h4 class="mb-0 text-center">
+                                No People Data Available
+                            </h4>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="datatable-bottom">
+            <div class="datatable-info">Showing {{peopleList.length > 0 ? l * (p - 1) + 1 : 0}} to {{l * (p - 1) + l <
+                    peopleList.length ? l * (p - 1) + l : peopleList.length}} of {{peopleList.length}} entries</div>
+                    <nav class="datatable-pagination">
+                        <ul class="datatable-pagination-list">
+                            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                            <!-- <li class="datatable-pagination-list-item datatable-hidden datatable-disabled"><a data-page="1"
+                            class="datatable-pagination-list-item-link">‹</a></li>
+                    <li class="datatable-pagination-list-item datatable-active"><a data-page="1"
+                            class="datatable-pagination-list-item-link">1</a></li>
+                    <li class="datatable-pagination-list-item"><a data-page="2"
+                            class="datatable-pagination-list-item-link">2</a></li>
+                    <li class="datatable-pagination-list-item datatable-ellipsis datatable-disabled"><a
+                            class="datatable-pagination-list-item-link">…</a></li>
+                    <li class="datatable-pagination-list-item"><a data-page="10"
+                            class="datatable-pagination-list-item-link">10</a></li>
+                    <li class="datatable-pagination-list-item"><a data-page="2"
+                            class="datatable-pagination-list-item-link">›</a></li> -->
+                        </ul>
+                    </nav>
+            </div>
+        </div>
+        <div class="float-right">
+            <button class="btn border csv-btn"><strong>CSV</strong></button>
+            <button class="btn border pdf-btn"><strong>PDF</strong></button>
+        </div>
+    </div>

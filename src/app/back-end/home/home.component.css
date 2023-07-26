@@ -1,0 +1,134 @@
+.image-side-card {
+    background: #d1d1d166;
+}
+
+.designation-title {
+    line-height: 1px;
+}
+
+.time-title-text {
+    color: #017808;
+}
+
+.h-100vh {
+    height: 100vh;
+}
+
+.card {
+    border-radius: 20px;
+    box-shadow: 0px 0px 20px 0px rgb(130 142 187 / 43%);
+    border: 0;
+
+}
+
+@media (min-width:768px) {
+    .timesheet-cards.card {
+        height: 435px;
+    }
+}
+
+.timesheet-card li {
+    line-height: 2rem;
+    font-size: 12px;
+}
+
+.timesheet-card {
+    max-height: 300px;
+    overflow: auto;
+}
+
+.dashboard-btns button {
+    font-size: 10px;
+}
+
+.dashboard-btns i {
+    font-size: 16px;
+}
+
+.calendar-card h4.active {
+    border-bottom: 3px solid #6098bd !important;
+}
+
+.calendar-card h5 {
+    white-space: nowrap !important;
+}
+
+
+.modal-content {
+    border-radius: 20px;
+}
+
+.h-50 {
+    height: 50px !important;
+}
+
+.ng-dropdown-panel {
+    background: #fff !important;
+}
+
+.employee-list img {
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid #000;
+}
+
+.employee-list {
+    border-bottom: 1px solid #b9b9b9;
+}
+
+.modal-display-button .card.active {
+    background-color: #017808 !important;
+}
+
+.profile-modal.modal-dialog {
+    /* position: fixed;
+    right: 0;
+    margin: auto; */
+
+    position: fixed;
+    margin: auto;
+    width: 440px;
+    right: 0;
+    height: 100%;
+    -webkit-transform: translate3d(0%, 0, 0);
+    -ms-transform: translate3d(0%, 0, 0);
+    -o-transform: translate3d(0%, 0, 0);
+    transform: translate3d(0%, 0, 0);
+}
+
+@media (max-width : 440px) {
+    .profile-modal.modal-dialog {
+        width: 320px;
+    }
+}
+
+.profile-modal .modal-content {
+    border-radius: 10px 0px 0px 10px !important;
+    height: 100vh;
+}
+
+.profile-modal .modal-body {
+    height: 80vh;
+    overflow: auto;
+}
+
+.unavailability-delete-icon {
+    top: 5px;
+    right: 5px;
+}
+
+.calaner_card {
+    width: 250px;
+}
+
+.calaner_card .calandercard {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0px 0px 20px 0px rgb(130 142 187 / 43%);
+    border: 0;
+}
+
+
+.btn-names {
+    white-space: nowrap;
+}
